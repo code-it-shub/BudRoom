@@ -1,28 +1,41 @@
 <div>
-    <div class="navbar bg-slate-700 text-center flex p-4 pl-40">
-        <a href="/" class="logo flex justify-start gap-6 ">
-            <img class="h-10" src="https://studybuddev.herokuapp.com/static/static/images/logo.svg" alt="" />
-            <h1 class="font-sedgwick align-middle text-white flex justify-center m-auto text-[29px] ">BudRoom</h1>
-        </a>
-        <form class="ml-40 flex justify-center bg-slate-500 rounded-md " action="" method="POST">
-            <span
-            class="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200"
-            id="basic-addon2">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              class="h-6 w-6">
-              <path
-                fill-rule="evenodd"
-                d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
-                clip-rule="evenodd" />
-            </svg>
-          </span>
-            <input class="bg-slate-500 border-none rounded-md text-white outline-none " placeholder="Search for Rooms" type="text" placeholder="Search for Rooms">
-        </form>
-        <div class="login">
-            <img src="" alt="">
+    <div class="navbar bg-slate-700 text-center flex pt-4 pb-4 ">
+        <div class="one w-[30vw]">
+            <a href="/" class="logo flex justify-center gap-6 ">
+                <img class="h-10" src="https://studybuddev.herokuapp.com/static/static/images/logo.svg" alt="" />
+                <h1 class="font-sedgwick text-white flex text-left text-[29px] ">BudRoom</h1>
+            </a>
+        </div>
+        <div class="two w-[30vw] flex justify-center">
+            <form class="ml-40 flex justify-center bg-slate-500 rounded-md  items-center" action="{%url 'home'%}" method="GET">
+                {% csrf_token %}
+                <span
+                class="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200"
+                id="basic-addon2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  class="h-6 w-6 items-center">
+                  <path
+                    fill-rule="evenodd"
+                    d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+                <input class="bg-slate-500 border-none rounded-md text-white outline-none " placeholder="Search for Rooms" type="text" name="q">
+            </form>
+        </div>
+        <div class="three w-[40vw] flex justify-end gap-5 ">
+            {% if request.user.is_authenticated %}
+            <img src="https://studybuddev.herokuapp.com/static/static/images/logo.svg" alt="userpic" class="items-center rounded-full h-10 pt-1">
+            <p class="items-center rounded-full h-10 pt-1 text-white">Hello {{request.user}}</p>
+            <a href="{% url 'logoutUser' %}"  class="pr-8 items-center pt-1.5 text-white">Logout</a>
+            {%else%}
+            <img src="https://studybuddev.herokuapp.com/static/static/images/logo.svg" alt="userpic" class="items-center rounded-full h-10 pt-1">
+            <a href="{% url 'login' %}" class="pr-8 items-center pt-1.5 text-white">Login</a>
+            {%endif%}
+ 
         </div>
     </div>
 </div>

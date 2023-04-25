@@ -1,6 +1,39 @@
-{% extends 'main.html' %}
+{% extends 'main.html' %} {% block content %}
+<h1>{{room.name}}</h1>
 
-{% block content %}
-<h1> {{room.description}}</h1>
+<h1>{{room.description}}</h1>
+<div class="largWrapp flex">
+  <div class="convoWrapper w-[80vw] flex flex-col justify-center ">
+    <h3>Conversation</h3>
+    <hr />
 
-{% endblock %}
+    {%for message in room_msgs%}
+    <div>
+        {% if request.user == message.user %}
+        <a href="{% url 'delete-message' message.id %}">Delete</a>
+        {%endif%}
+      <small>@{{message.user}} {{message.created | timesince}} ago</small>
+      <hr />
+      <div class="content">{{message.body}}</div>
+    </div>
+    {%endfor%}
+    <div class="comment-form">
+      <form action="" method="POST">
+        {%csrf_token%}
+        <input
+          type="text"
+          name="body"
+          id=""
+          placeholder="Write your message here"
+        />
+      </form>
+    </div>
+  </div>
+  <div class="participant w-[20vw]">
+    <h1>Participants</h1>
+    {% for participant in participants %}
+    <hr />
+    {{participant.username}} {%endfor%}
+  </div>
+</div>
+{% endblock content %}

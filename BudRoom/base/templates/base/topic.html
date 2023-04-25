@@ -1,0 +1,10 @@
+<div class="left w-[20vw] flex flex-col">
+    <div class="all">
+        <a href="{%url 'home'%}">All</a>
+    </div>
+    {% for topic in topics %}
+    <div class="topic-name">
+        <a href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}</a>
+    </div>
+    {%endfor%}
+</div>

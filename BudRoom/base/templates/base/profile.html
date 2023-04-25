@@ -1,0 +1,19 @@
+{%extends 'main.html'%}
+
+{% block content %}
+<h1>{{user.username}}</h1>
+
+<div class="flex">
+    <div class="w-[20vw]">
+        {% include 'base/topic.html'%}
+    </div>
+    <div class="w-[60vw]">
+        {% include 'base/feeds.html'%}
+    </div>
+    <div class="w-[20vw]">
+        {% include 'base/activity_component.html'%}
+
+    </div>
+</div>
+
+{%endblock%}

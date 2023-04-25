@@ -3,26 +3,18 @@
 {% block content %}
 <h1>HOME PAGE</h1>
 <div>
-    <div>
-        <a href="{% url 'createroom'%}">Create room</a>
-    </br>
-    </br>
-        </br>
-        </br>
-        </br>
-        <hr> 
-        {% for room in rooms %}
-            <div>
-                <a href="{% url 'update-room' room.id %}">Edit</a>
-                <a href="{% url 'delete-room' room.id %}">DELETE</a>
-                <br>
-                <br>
-                <span>@{{room.host.username}}</span>
-                <h5>{{room.id}} --- <a href="{% url 'room' room.id%}">{{room.name}}</a></h5>
-                <small>{{room.description}}</small>
-            </div>
-            <hr>
-        {%endfor%}
+    <div. class="home-container flex ">
+        {% include 'base/topic.html'%}
+        <div class="right w-[60vw]">
+            <a href="{% url 'createroom'%}">Create room</a>
+            <h5>Total Room available {{roomCount}}</h5>
+
+            {% include 'base/feeds.html'%}
+
+
+        </div>
+        {% include 'base/activity_component.html' %}
+
     </div>
 </div>
 {% endblock %}

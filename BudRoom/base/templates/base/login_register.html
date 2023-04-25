@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+
+{% block content %}
+{% if page == 'login'%}
+<div>
+    <form action="" method="POST" class="flex flex-col justify-center">
+        {%csrf_token%}
+        <label for="">Username:</label>
+        <input type="text" name="Username" placeholder="Enter Username" class=""/>
+        <label for="">Password:</label>
+        <input type="password" name="Password" placeholder="Enter your Password" class="min-w-full"/>
+        <button type="submit">Login</button>
+    </form>
+    <p>Haven't registered yet?</p>
+    <a href="{% url 'registerUser' %}">Sign up</a>
+</div>
+{%else%}
+<div>
+    <form action="" method="POST">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input type="submit" value="Register">
+    </form>
+    <p>Already Registered?</p>
+    <a href="{% url 'login'%}">Sign in</a>
+</div>
+{%endif%}
+
+{%endblock%}
