@@ -1,15 +1,29 @@
-<div class="activity w-[20vw]">
-    <h1>Recent Activities</h1>
-    <hr>
-    <hr>
+{% load static%}
+<div class="activity w-[25vw] bg-slate-700 m-[4vw] rounded-lg">
+    <div class="heading flex bg-slate-500 rounded-t-lg rounded-tr-lg text-slate-100 font-sans text-[20px] font-semibold justify-center align-middle pt-[10px] pb-[13px]">
+        <h1 class="align-middle ">Recent Activities</h1>
+    </div>
+    <div class="h-screen overflow-scroll">
     {% for message in room_msgs %}
-    <small class="flex flex-col"><a href="{%url 'user-profile' message.user.id%}">@{{message.user}}</a> {{message.created|timesince}} ago </small>
-    <small>replied to "{{message.room}}"</small>
-    <p>{{message.body}}</p>
-    {% if request.user == message.user %}
-    <a href="{% url 'delete-message' message.id %}">Delete</a>
-    {%endif%}
-    <hr>
+    <div class=" border-2 border-slate-600 rounded-lg m-3 bg ">
+        <div class="user flex border-slate-600">
+            <div class="left w-[20%] border-slate-600">
+                <img src="{% static '/images/user_profile.svg'%} " class="w-[50px] h-[50px] flex justify-end align-middle pt-4 pl-2"  alt="">
+            </div>
+            <div class="right flex flex-col w-[70%] pt-2 border-slate-600">
+                <small><a href="{%url 'user-profile' message.user.id%}" class="text-slate-200 font-sans text-[15px]">@{{message.user}}</a></small>
+                <small class="text-slate-200 font-sans text-[10px]">{{message.created|timesince}} ago</small>
+                <small class="text-slate-200 font-sans text-[10px]">replied to "{{message.room}}"</small>
+            </div>
+            <div class="deletion flex justify-end w-[10%] border-slate-600">          
+                {% if request.user == message.user %}
+                <a href="{% url 'delete-message' message.id %}" ><img src="{% static '/images/close.svg' %}" class="w-[15px] h-[15px] fill-slate-300 m-2 text-white" alt=""></a>
+                {%endif%}
+            </div>
+        </div>
+        <div class="msg bg-slate-900 text-slate-300 rounded-lg m-2 p-2"><p>{{message.body}}</p></div>    
+    </div>
     {%endfor%}
+    </div>  
 
 </div>

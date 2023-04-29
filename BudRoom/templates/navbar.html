@@ -1,12 +1,13 @@
-<div>
-    <div class="navbar bg-slate-700 text-center flex pt-4 pb-4 ">
-        <div class="one w-[30vw]">
+{% load static%}
+<div class="navbar-container">
+    <div class="navbar bg-slate-700 text-center flex lg:pt-4 lg:pb-4 py-2">
+        <div class="one lg:w-[30vw] pl-2">
             <a href="/" class="logo flex justify-center gap-6 ">
                 <img class="h-10" src="https://studybuddev.herokuapp.com/static/static/images/logo.svg" alt="" />
-                <h1 class="font-sedgwick text-white flex text-left text-[29px] ">BudRoom</h1>
+                <h1 class="font-sedgwick text-white lg:flex text-left text-[29px] hidden ">BudRoom</h1>
             </a>
         </div>
-        <div class="two w-[30vw] flex justify-center">
+        <div class="two w-[30vw] lg:flex justify-center hidden">
             <form class="ml-40 flex justify-center bg-slate-500 rounded-md  items-center" action="{%url 'home'%}" method="GET">
                 {% csrf_token %}
                 <span
@@ -26,16 +27,19 @@
                 <input class="bg-slate-500 border-none rounded-md text-white outline-none " placeholder="Search for Rooms" type="text" name="q">
             </form>
         </div>
-        <div class="three w-[40vw] flex justify-end gap-5 ">
+        <div class="three lg:w-[40vw] flex justify-end gap-5 w-[80vw] "> 
             {% if request.user.is_authenticated %}
-            <img src="https://studybuddev.herokuapp.com/static/static/images/logo.svg" alt="userpic" class="items-center rounded-full h-10 pt-1">
-            <p class="items-center rounded-full h-10 pt-1 text-white">Hello {{request.user}}</p>
-            <a href="{% url 'logoutUser' %}"  class="pr-8 items-center pt-1.5 text-white">Logout</a>
+            <img src="{%static '/images/user_profile.svg'%}" alt="userpic" class="userProfile items-center rounded-full h-10 pt-1 to-white">
+            <p class="items-center rounded-full flex  align-middle justify-center text-white">Hello {{request.user}}</p>
+            <button onclick="btnaction()"><img class="w-[15px] mr-5 flex items-center" src="{% static '/images/drop-down.png'%}"  alt=""></button>
+            <div class="dropdown bg-slate-800 rounded-md flex flex-col text-slate-200  p-5 shadow-md justify-center items-center z-10 absolute top-[3.3rem] left-[87.8rem;] pl-8 pr-8 w-100%" id="drop">
+                <a href="{%url 'profile-update'%}" class=" flex justify-center items-center  text-white pb-3 hover:text-slate-400 ">Settings</a>
+                <a href="{% url 'logoutUser' %}"  class=" flex justify-center align-middle items-center  text-white hover:text-slate-400 pb-2 ">Logout</a>
+            </div>
             {%else%}
             <img src="https://studybuddev.herokuapp.com/static/static/images/logo.svg" alt="userpic" class="items-center rounded-full h-10 pt-1">
             <a href="{% url 'login' %}" class="pr-8 items-center pt-1.5 text-white">Login</a>
             {%endif%}
- 
         </div>
     </div>
 </div>

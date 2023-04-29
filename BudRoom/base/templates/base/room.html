@@ -1,39 +1,60 @@
 {% extends 'main.html' %} {% block content %}
-<h1>{{room.name}}</h1>
-
-<h1>{{room.description}}</h1>
-<div class="largWrapp flex">
-  <div class="convoWrapper w-[80vw] flex flex-col justify-center ">
-    <h3>Conversation</h3>
-    <hr />
-
-    {%for message in room_msgs%}
-    <div>
-        {% if request.user == message.user %}
-        <a href="{% url 'delete-message' message.id %}">Delete</a>
-        {%endif%}
-      <small>@{{message.user}} {{message.created | timesince}} ago</small>
-      <hr />
-      <div class="content">{{message.body}}</div>
+{% load static%}
+<div class="room-container w-screen bg-slate-800 flex justify-center h-screen gap-6 overflow-hidden">
+  <div class="room-update w-[50vw] mt-[30px] ">
+    <div class="heading text-slate-200 w-[100%] rounded-tl-lg rounded-tr-lg bg-slate-500 flex items-center pl-4 ">
+      <a href="{% url 'home'%}"><img src="{%static '/images/back-arrow.svg'%}" class="w-[25px] fill-slate-500" alt=""></a><h1 class="font-sans text-xl pb-3 pt-2 pl-3 flex items-center align-middle ">{{room.name}}</h1>
     </div>
-    {%endfor%}
-    <div class="comment-form">
-      <form action="" method="POST">
-        {%csrf_token%}
-        <input
-          type="text"
-          name="body"
-          id=""
-          placeholder="Write your message here"
-        />
-      </form>
+    <div class="room-content w-[100%] bg-slate-700 pl-4 pr-4 rounded-br-lg rounded-bl-lg">
+      <div class="left w-[100%] flex flex-col">
+        <div class="nam mt-3 w-[100%]">
+          <section class="font-sans font-semibold text-[#71c6dd] text-[28px]">{{room.name}}</section>
+        </div>
+        <div class="timestamp mt-1.5 w-[100%]">
+          <section class="font-sans text-[#b2bdbd] text-[14px]" >{{room.created|timesince}} ago</section>
+        </div>
+        <div class="hosted mt-1.5 w-[100%]">
+          <section class="font-sans text-[#b2bdbd] text-[14px]">HOSTED BY</section>
+        </div>
+        <div class="user flex  mt-1.5 w-[100%]">
+          <a href="{% url 'user-profile' room.host.id %}"><img src="{%static '/images/user_profile.svg'%}" alt="" class="w-[30px] h-[30px] rounded-full border-[#42c5ed] border-2 "></a>
+          <a href="{% url 'user-profile' room.host.id %}"><section class="text-[16px] flex items-center pl-3 font-sans font-semibold text-[#42c5ed]">@{{room.host.username}}</section></a>
+        </div>
+        <div class="message-box mt-3  w-[100%] flex justify-center ">
+          <div class="messagess w-[100%] rounded-lg mb-3 p-5 bg-slate-800 max-h-[45vh] overflow-scroll">
+            {%for msg in room_msgs %}
+            <div class="msg border-l-2 border-slate-500  py-2  my-3 ">
+              <section class="font-sans text-[#b2bdbd] text-[14px] ml-5 flex items-center">
+                <small class="font-sans font-semibold text-[#42c5ed] text-[15px] ml-3 mr-3 flex items-center gap-2"><a href="{%url 'user-profile' msg.user.id%}" class="flex items-center gap-2"><img src="{%static '/images/user_profile.svg'%}" alt="" class="w-[30px] h-[30px] rounded-full border-[#42c5ed] border-2 ">@{{msg.user.username}}</a></small>{{msg.body}}
+              </section>
+            </div>
+            {%endfor%}
+          </div>
+        </div>
+        <div class="write-msg my-3 mt-1">
+          <form action="" method="POST" class="flex">
+            {%csrf_token%}
+            <input type="text" name="msg" id="" class="w-[90%] rounded-tl-lg rounded-bl-lg  bg-slate-400 ">
+            <button class="font-sans font-semibold text-[#42c5ed] text-[15px] w-[10%] rounded-tr-lg rounded-br-lg bg-slate-800">Send</button>
+          </form>
+        </div>
+      </div>
     </div>
+    
   </div>
-  <div class="participant w-[20vw]">
-    <h1>Participants</h1>
-    {% for participant in participants %}
-    <hr />
-    {{participant.username}} {%endfor%}
+  <div class="participants w-[20vw] mt-[30px]  ">
+    <div class="right w-[100%]">
+      <div class="head w-[100%] flex justify-center font-sans pb-2 pt-2 text-slate-200 text-[27px]  rounded-tl-lg rounded-tr-lg bg-slate-500 items-center pl-4">
+        <small>Participant</small><small class="text-[19px] flex items-center  text-[#42c5ed]">(Joined {{participants.count}})</small>
+      </div>
+      <div class="users h-screen overflow-scroll rounded-br-lg rounded-bl-lg">
+        {%for user in participants%}
+        <div class="user flex w-[100%] bg-slate-700 pl-4 pr-4  text-[#42c5ed] text-[18px] font-sans font-semibold py-4 ">
+          <img src="{%static '/images/user_profile.svg'%}" alt="" class="w-[30px] h-[30px] rounded-full border-[#42c5ed] border-2 mr-2">@{{user}}
+        </div>
+        {%endfor%}
+      </div>
+    </div>
   </div>
 </div>
 {% endblock content %}

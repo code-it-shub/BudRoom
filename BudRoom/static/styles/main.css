@@ -1,0 +1,20 @@
+
+.body{
+    background-color:  rgb(28, 36, 46);
+}
+
+.home-container{
+    background-color:  rgb(28, 36, 46);
+}
+.navbar-container > .navbar > .three >.dropdown{
+    display: none;
+
+}
+.navbar-container > .navbar > .three >.active{
+    display: flex
+
+}
+.content > .update-profile > .update-form > form > input{
+    border-radius: 5px;
+    background-color: rgba(162, 189, 233, 0.5);
+}
