@@ -1,0 +1,15 @@
+<div class="left w-[20vw] flex flex-col ">
+    <div class="heading flex justify-center align-middle pt-[70px]">
+        <h1 class="text-2xl text-slate-500 font-bold font-sam">Browse Topic</h1>
+    </div>
+    <div class="content flex justify-start flex-col  mt-5 text-slate-300 text-lg font-semibold font-sam ">
+        <div class="all flex justify-start align-middle mt-9 pl-[4.7rem]">
+            <a class="hover:text-slate-100" href="{%url 'home'%}">All({{topics.count}})</a>
+        </div>
+        {% for topic in topics %}
+        <div class="topic-name flex justify-start align-middle mt-6 pl-[4.7rem]">
+            <a class="hover:text-slate-100" href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}({{topic.room_set.all.count}})</a>
+        </div>
+        {%endfor%}
+    </div>
+</div>

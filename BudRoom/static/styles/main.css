@@ -1,0 +1,30 @@
+
+.body{
+    background-color:  rgb(28, 36, 46);
+}
+
+.home-container{
+    background-color:  #1c242e;
+}
+.navbar-container > .navbar > .three >.dropdown{
+    display: none;
+
+}
+.navbar-container > .navbar > .three >.active{
+    display: flex
+
+}
+body >.rec-act-btns > .rec > .rec-div {
+    display: none;
+}
+body >.rec-act-btns > .rec > .active {
+    display: flex;
+}
+
+body >.rec-act-btns > .act >.act-div {
+    display: none;
+}
+
+body >.rec-act-btns > .act > .active {
+    display: flex;
+}

@@ -1,0 +1,20 @@
+{% extends 'main.html'%}
+{% block content%}
+{%load static%}
+<div class="update-profile bg-slate-800 w-screen h-screen flex flex-col  items-center pt-5">
+    <div class="heading text-slate-200 lg:w-[30vw] w-[90vw] rounded-tl-lg rounded-tr-lg bg-slate-500 flex items-center lg:pl-4 pl-3 ">
+        <a href="{% url 'home'%}"><img src="{%static '/images/back-arrow.svg'%}" class="lg:w-[25px] w-[20px] fill-slate-500" alt=""></a><h1 class="font-sans lg:text xl text-[17px] lg:pb-3 pb-2 lg:pt-2 pt-1 pl-3 flex items-center align-middle ">User-Update form</h1>
+      </div>
+    <div class="lg:w-[30vw] w-[90vw] bg-slate-700 lg:p-5 p-3 rounded-br-lg rounded-bl-lg">
+        <form action="" method="POST" class="update-form flex flex-col p-4 w-[100%] text-slate-800 lg:text-[17px] text-[15px] font-sans ">
+            {% csrf_token %}
+            {%for fields in form%}
+            <label for="" class="mt-2 mb-1 text-slate-200 font-sans">{{fields.label}} :</label>
+            {{fields}}
+            {%endfor%}
+            <div class="flex justify-center"><button class="rounded-lg text-slate-200 bg-slate-800 px-4 py-2 mt-5" type="submit ">Update</button></div>
+        </form>
+    </div>
+</div>
+
+{% endblock%}

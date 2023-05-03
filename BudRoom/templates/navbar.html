@@ -1,0 +1,111 @@
+{% load static%}
+<div class="navbar-container">
+    <div class="navbar bg-slate-700 text-center flex lg:pt-4 lg:pb-4 py-2">
+        <div class="one lg:w-[30vw] pl-5">
+            <a href="/" class="logo flex justify-center gap-6 ">
+                <img class="h-10" src="https://studybuddev.herokuapp.com/static/static/images/logo.svg" alt="" />
+                <h1 class="font-sedgwick text-white lg:flex text-left text-[29px] hidden ">BudRoom</h1>
+            </a>
+        </div>
+        <div class="two w-[30vw] lg:flex justify-center hidden">
+            <form class="lg:ml-40 flex justify-center bg-slate-500 rounded-md  items-center" action="{%url 'home'%}" method="GET">
+                {% csrf_token %}
+                <span
+                class="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200"
+                id="basic-addon2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  class="h-6 w-6 items-center">
+                  <path
+                    fill-rule="evenodd"
+                    d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                    clip-rule="evenodd" />
+                </svg>
+              </span>
+                <input class="bg-slate-500 border-none rounded-md text-white outline-none " placeholder="Search for Rooms" type="text" name="q">
+            </form>
+        </div>
+        <div class="three lg:w-[40vw] flex justify-end lg:gap-5 w-[80vw] gap-3"> 
+            {% if request.user.is_authenticated %}
+            <img src="{%static '/images/user_profile.svg'%}" alt="userpic" class="userProfile items-center rounded-full h-10 pt-1 to-white">
+            <p class="items-center rounded-full flex  align-middle justify-center text-white">Hello {{request.user}}</p>
+            <button onclick="btnaction()"><img class="w-[15px] lg:mr-5 flex items-center mr-1" src="{% static '/images/drop-down.png'%}"  alt=""></button>
+            <div class="dropdown bg-slate-800 rounded-md flex flex-col text-slate-200  p-5 shadow-md justify-center items-center z-10 absolute lg:top-[4.3rem] lg:left-[88%] lg:right-[2%] pl-8 pr-8 w-100% left-[75%] right-[5%] top-[3.3rem]" id="drop">
+                <a href="{%url 'profile-update'%}" class=" flex justify-center items-center  text-white pb-3 hover:text-slate-400 ">Settings</a>
+                <a href="{% url 'logoutUser' %}"  class=" flex justify-center align-middle items-center  text-white hover:text-slate-400 pb-2 ">Logout</a>
+            </div>
+            {%else%}
+            <img src="https://studybuddev.herokuapp.com/static/static/images/logo.svg" alt="userpic" class="items-center rounded-full h-10 pt-1">
+            <a href="{% url 'login' %}" class="lg:pr-8 pr-2 items-center pt-1.5 text-white">Login</a>
+            {%endif%}
+        </div>
+    </div>
+</div>
+<div class="two w-screen lg:hidden justify-center flex bg-[#1c242e] pt-3">
+    <form class="lg:ml-40 flex justify-center bg-slate-500 rounded-md  items-center" action="{%url 'home'%}" method="GET">
+        {% csrf_token %}
+        <button type="submit">
+            <span
+            class="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200"
+            id="basic-addon2">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+              class="h-6 w-6 items-center">
+              <path
+                fill-rule="evenodd"
+                d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                clip-rule="evenodd" />
+            </svg>
+            </span>
+        </button>
+        <input class="bg-slate-500 border-none rounded-md text-white outline-none " placeholder="Search for Rooms" type="text" name="q">
+    </form>
+</div>
+<div class="rec-act-btns lg:hidden flex rec-act justify-center gap-8 bg-[#1c242e] pt-4 pb-3">
+    <div class="rec">
+        <button class="rec-btn rounded-2xl border-2 border-[#42c5ed] text-[#42c5ed] px-7 py-2" onclick="recbtn()">Browse Topic</button>
+        <div class="rec-div absolute top-[11rem] left-0 right-0 m-auto  bg-slate-700 w-[90vw] rounded-lg shadow-lg justify-center z-10">
+            <div class="content flex justify-center flex-col  text-slate-300 text-lg font-semibold font-sam py-5">
+                <div class="all flex justify-center align-middle ">
+                    <a class="hover:text-slate-100" href="{%url 'home'%}" >All({{topics.count}})</a>
+                </div>
+                {% for topic in topics %}
+                <div class="topic-name flex justify-center align-middle mt-6 ">
+                    <a class="hover:text-slate-100" href="{% url 'home' %}?q={{topic.name}}">{{topic.name}}({{topic.room_set.all.count}})</a>
+                </div>
+                {%endfor%}
+            </div>
+        </div>
+    </div>
+    <div class="act">
+        <button onclick="actbtn()" class="act-btn rounded-2xl border-2 border-[#42c5ed] text-[#42c5ed]  px-4 py-2">Recent Activities</button>
+        <div class="act-div absolute top-[11rem] left-0 right-0 m-auto  bg-slate-700 w-[90vw] rounded-lg shadow-lg justify-center">
+            <div class="h-screen overflow-scroll">
+                {% for message in room_msgs %}
+                <div class=" border-2 border-slate-600 rounded-lg m-2">
+                    <div class="user flex border-slate-600">
+                        <div class="left w-[20%] border-slate-600">
+                            <img src="{% static '/images/user_profile.svg'%} " class="w-[50px] h-[50px] flex justify-end align-middle pt-4 pl-2"  alt="">
+                        </div>
+                        <div class="right flex flex-col w-[70%] pt-2 border-slate-600">
+                            <small><a href="{%url 'user-profile' message.user.id%}" class="text-slate-200 font-sans text-[15px]">@{{message.user}}</a></small>
+                            <small class="text-slate-200 font-sans text-[10px]">{{message.created|timesince}} ago</small>
+                            <small class="text-slate-200 font-sans text-[10px]">replied to "{{message.room}}"</small>
+                        </div>
+                        <div class="deletion flex justify-end w-[10%] border-slate-600">          
+                            {% if request.user == message.user %}
+                            <a href="{% url 'delete-message' message.id %}" ><img src="{% static '/images/close.svg' %}" class="w-[15px] h-[15px] fill-slate-300 m-2 text-white" alt=""></a>
+                            {%endif%}
+                        </div>
+                    </div>
+                    <div class="msg bg-slate-900 text-slate-300 rounded-lg m-2 p-2"><p>{{message.body}}</p></div>    
+                </div>
+                {%endfor%}
+                </div>  
+        </div>
+    </div>
+</div>

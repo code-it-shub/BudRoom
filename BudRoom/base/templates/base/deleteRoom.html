@@ -1,0 +1,16 @@
+{% extends 'main.html' %}
+{% block content%}
+<div class="deletion-container bg-slate-600 flex justify-center h-screen">
+    <div class="inner-container mt-9 bg-slate-800 rounded-lg lg:h-[180px]  h-[30vh] lg:w-[30vw] w-[90vw]">
+        <form action="" method="POST" class="flex flex-col justify-center p-7  " >
+            {% csrf_token %}
+            <p class="text-slate-200 text-[20px]" >Are you sure you want to delete "{{obj}}" ?</p>
+            <div class="btns flex gap-6 justify-center mt-5">
+                <a href="{{request.META.HTTP_REFERER}}" class="rounded-lg text-slate-100 bg-slate-600 px-4 py-2">GO BACK</a>
+                <button type="submit" class="rounded-lg text-slate-200 bg-slate-600 px-4 py-2">CONFIRM</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

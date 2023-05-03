@@ -1,0 +1,74 @@
+{%extends 'main.html'%}
+{%load static%}
+{% block content %}
+<div class="flex w-screen bg-slate-800 justify-center ">
+    <div class="lg:flex hidden">
+        {% include 'base/topic.html'%}
+    </div>
+    <div class="lg:w-[48vw] w-[95vw] flex justify-center ">
+        <div class="user-profile mt-[5vw] w-[100%] ">
+            <div class="user-info flex flex-col justify-center">
+                <section class="flex justify-center"><img src="{%static '/images/user_profile.svg'%}" alt="userpic" class="userProfile items-center rounded-full w-[100px] pt-1 to-white"></section>
+                <section class="flex justify-center text-[#b2bdbd] text-[18px] mt-2 font-sans font-semibold ">{{user.first_name}} {{user.last_name}}</section>
+                <section class="flex justify-center text-[#42c5ed] text-[18px] mt-1.4 font-sans font-semibold ">@{{user.username}} <div class="text-slate-200 font-extralight ml-1 text-[15px] pt-[0.19rem;]">0 Followers</div></section>
+                {%if user == request.user %}
+                <section class="flex justify-center text-[#42c5ed] mt-3"><button class="rounded-2xl border-2 border-[#42c5ed]  px-4 py-2">Edit Profile</button></section>
+                {%else%}
+                <section class="flex justify-center text-[#42c5ed] mt-3"><button class="rounded-2xl border-2 border-[#42c5ed]  px-4 py-2">Follow</button></section>
+                {%endif%}
+            </div>
+            <div class="user-about mt-9">
+                <div class="about flex flex-col">
+                    <section><h1 class="text-slate-600 text-[20px] font-sans font-semibold">ABOUT</h1></section>
+                    <section class="mt-2"><p class="text-[#b2bdbd] text-[17px] font-sans">None</p></section>
+                </div>
+                <div class="room-participated mt-6">
+                    <section><h1 class="text-slate-600 text-[20px] font-sans font-semibold">ROOMS {{user.username.upper}} PARTICIPATES IN</h1></section>
+                    <div class="h-screen overflow-scroll">
+                    {% for room in room_participated%}
+                    <div class="mt-4 rounded-lg bg-slate-500 w-[100%]  ">
+                        <!-- {% if request.user == room.host %}
+                        <a href="{% url 'update-room' room.id %}">Edit</a>
+                        <a href="{% url 'delete-room' room.id %}">DELETE</a>
+                        {% endif %} -->
+                        <div class="userinfo flex pt-5 pl-3 w-[100%]">
+                            <div class="left flex items-center w-[50%]">
+                                <a href="{% url 'user-profile' room.host.id %}"><img src="{%static '/images/user_profile.svg'%}" alt="" class="w-[30px] h-[30px] rounded-full border-[#42c5ed] border-2 "></a>
+                                <a href="{% url 'user-profile' room.host.id %}"  class="text-[16px] flex items-center pl-3 font-sans font-semibold text-[#42c5ed]">Host @{{room.host.username}}</a>
+                            </div>
+                            <div class="right flex items-center w-[50%] justify-end pr-3">
+                                <small class="flex items-center text-[15px] font-sans text-slate-200 font-semibold">{{room.created|timesince}} ago</small>
+                            </div>
+                        </div>
+                        <div class="title">
+                            <a href="{% url 'room' room.id%}" class="flex items-center text-[1.4rem] font-sans text-slate-200 font-semibold pl-3 pt-2">{{room.name}}</a>
+                        </div>
+                        <div class="joined flex pt-4 pl-3">
+                            {%for users in room.participants.all%}
+                            <a href="{%url 'user-profile' users.id %}"><img src="{%static '/images/user_profile.svg'%}" alt="" class="w-[30px] h-[30px] rounded-full border-blue-400 border-2 "></a>
+                            {%endfor%}
+                        </div>
+                        <div class=" ml-3 mr-3 mt-5 mb-5 ">
+                            <hr class="text-slate-500">
+                        </div>
+                        <div class="joiners text-slate-200 flex pl-3 pb-5">
+                            <div class="w-[50%] flex "><img src="{% static '/images/group_user.png'%}" alt="" class="w-[25px] h-[25px] fill-blue-400"> <small class="pl-3 text-slate-200 font-sans font-semibold  ">{{room.participants.count}} Joined</small></div>
+                            <div class="w-[50%] flex justify-end pr-3"><small class="bg-slate-700 text-slate-200 rounded-lg p-2 font-sans font-semibold">{{room.topic.name}}</small></div>
+                        </div>  
+                    </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        <!-- {%for room in room_participated%}
+         {{room}}
+        {%endfor%} -->
+        </div>
+        
+    </div>
+    <div class="w-[40vw] lg:flex hidden">
+        {% include 'base/activity_component.html'%}
+    </div>
+</div>
+
+{%endblock%}
