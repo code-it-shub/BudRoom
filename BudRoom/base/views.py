@@ -108,7 +108,8 @@ def room(request, pk):
         else:
             return redirect('login')
     participants= room.participants.all()  
-    params = {'room': room , 'room_msgs': room_msgs, 'participants':participants}
+    topics = Topic.objects.all()
+    params = {'room': room , 'room_msgs': room_msgs, 'participants':participants, 'topics' :topics}
     return render(request, 'base/room.html', params)
 
 @login_required(login_url='/login')

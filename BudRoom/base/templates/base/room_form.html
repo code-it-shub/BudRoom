@@ -1,13 +1,13 @@
 {% extends 'main.html'%}
 {% block content %}
-<div class="w-[100vw] h-screen  bg-slate-800 pt-9">
-<div class=" m-auto bg-slate-700 w-[50%] rounded-lg ">
+<div class="w-[100vw] h-screen  bg-slate-800 lg:pt-9 pt-6">
+<div class=" m-auto bg-slate-700 lg:w-[50%] rounded-lg w-[90%] ">
 <form action="" method="POST" class="flex flex-col p-5 text-slate-800 justify-center align-middle">
     {% csrf_token %}
-    <small class="text-slate-200 font-sans font-semibold text-[20px] mb-3 mt-3">Topic :</small><input type="text" name="topic" id="" placeholder="Topic Name" class="rounded-lg bg-slate-300">
-    <small class="text-slate-200 font-sans font-semibold text-[20px] mb-3 mt-4">Room Name : </small> <input type="text" name="room_name" id="" placeholder="Room Name" class="rounded-lg bg-slate-300">
-    <small class="text-slate-200 font-sans font-semibold text-[20px] mb-3 mt-4">Description :</small> <textarea name="description" id="" cols="30" rows="10" placeholder="Describe here" class="rounded-lg bg-slate-300"></textarea>
-    <div class="flex justify-center"><button type="submit" class="bg-slate-800 rounded-lg p-3 text-slate-200 w-[30%] mt-6">Create Room</button></div>
+    <small class="text-slate-200 font-sans font-semibold lg:text-[20px] text-[16px] lg:mb-3 mb-2 lg:mt-3 mt-2">Topic :</small><input type="text" name="topic" id="" placeholder="Topic Name" class="rounded-lg bg-slate-300">
+    <small class="text-slate-200 font-sans font-semibold lg:text-[20px] text-[16px] lg:mb-3 mb-2 lg:mt-4 mt-2">Room Name : </small> <input type="text" name="room_name" id="" placeholder="Room Name" class="rounded-lg bg-slate-300">
+    <small class="text-slate-200 font-sans font-semibold lg:text-[20px] text-[16px] lg:mb-3 mb-2 lg:mt-4 mt-2">Description :</small> <textarea name="description" id="" cols="30" rows="10" placeholder="Describe here" class="rounded-lg bg-slate-300"></textarea>
+    <div class="flex justify-center"><button type="submit" class="bg-slate-800 rounded-lg p-3 text-slate-200 lg:w-[30%] w-[40%] mt-6">Create Room</button></div>
     <!-- {{form.as_p}}
     <input type="submit"> -->
 </form>

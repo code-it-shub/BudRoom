@@ -1,12 +1,12 @@
 {%extends 'main.html'%}
 {%load static%}
 {% block content %}
-<div class="flex w-screen bg-slate-800">
-    <div class="">
+<div class="flex w-screen bg-slate-800 justify-center ">
+    <div class="lg:flex hidden">
         {% include 'base/topic.html'%}
     </div>
-    <div class="w-[48vw] ">
-        <div class="user-profile mt-[5vw] ">
+    <div class="lg:w-[48vw] w-[95vw] flex justify-center ">
+        <div class="user-profile mt-[5vw] w-[100%] ">
             <div class="user-info flex flex-col justify-center">
                 <section class="flex justify-center"><img src="{%static '/images/user_profile.svg'%}" alt="userpic" class="userProfile items-center rounded-full w-[100px] pt-1 to-white"></section>
                 <section class="flex justify-center text-[#b2bdbd] text-[18px] mt-2 font-sans font-semibold ">{{user.first_name}} {{user.last_name}}</section>
@@ -66,7 +66,7 @@
         </div>
         
     </div>
-    <div class="w-[20vw]">
+    <div class="w-[40vw] lg:flex hidden">
         {% include 'base/activity_component.html'%}
     </div>
 </div>

@@ -4,7 +4,7 @@
 }
 
 .home-container{
-    background-color:  rgb(28, 36, 46);
+    background-color:  #1c242e;
 }
 .navbar-container > .navbar > .three >.dropdown{
     display: none;
@@ -14,7 +14,17 @@
     display: flex
 
 }
-.content > .update-profile > .update-form > form > input{
-    border-radius: 5px;
-    background-color: rgba(162, 189, 233, 0.5);
+body >.rec-act-btns > .rec > .rec-div {
+    display: none;
+}
+body >.rec-act-btns > .rec > .active {
+    display: flex;
+}
+
+body >.rec-act-btns > .act >.act-div {
+    display: none;
+}
+
+body >.rec-act-btns > .act > .active {
+    display: flex;
 }
